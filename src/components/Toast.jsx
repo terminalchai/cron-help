@@ -10,13 +10,17 @@ export default function Toast({ toast, onClose }) {
   }, [toast, onClose])
 
   return (
-    <div style={{
-      position: 'fixed',
-      bottom: '1.5rem',
-      right: '1.5rem',
-      zIndex: 999,
-      pointerEvents: 'none',
-    }}>
+    <div
+      role="status"
+      aria-live="polite"
+      aria-atomic="true"
+      style={{
+        position: 'fixed',
+        bottom: '1.5rem',
+        right: '1.5rem',
+        zIndex: 999,
+        pointerEvents: 'none',
+      }}>
       <AnimatePresence>
         {toast && (
           <motion.div
@@ -46,6 +50,7 @@ export default function Toast({ toast, onClose }) {
             </span>
             <button
               onClick={onClose}
+              aria-label="Dismiss notification"
               style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--dim)', padding: '0.125rem', display: 'flex' }}
             >
               <CloseIcon size={13} />

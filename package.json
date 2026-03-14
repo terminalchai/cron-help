@@ -9,14 +9,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "cron-parser": "^4.9.0",
+    "cronstrue": "^2.50.0",
     "framer-motion": "^12.0.0",
     "lucide-react": "^0.469.0",
-    "cronstrue": "^2.50.0",
-    "cron-parser": "^4.9.0"
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.58.2",
     "@vitejs/plugin-react": "^4.3.4",
     "vite": "^6.0.5"
   }

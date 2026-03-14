@@ -37,25 +37,28 @@ export default function CronInput({ value, onChange, result }) {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-      {/* Field labels */}
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(5, 1fr)',
-        gap: '0.5rem',
-        padding: '0 0.25rem',
-        maxWidth: 520,
-      }}>
-        {['Minute', 'Hour', 'Day', 'Month', 'Weekday'].map(label => (
-          <div key={label} style={{
-            textAlign: 'center',
-            fontSize: '0.65rem',
-            fontFamily: 'JetBrains Mono, monospace',
-            color: 'var(--dim)',
-            letterSpacing: '0.05em',
-            textTransform: 'uppercase',
-          }}>
-            {label}
-          </div>
+      {/* Visually-hidden label for screen readers */}
+      <label
+        htmlFor="cron-expr-input"
+        style={{ position: 'absolute', width: 1, height: 1, overflow: 'hidden', clip: 'rect(0,0,0,0)', whiteSpace: 'nowrap' }}
+      >
+        Cron expression
+      </label>
+
+      {/* Format hint strip */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.375rem', paddingLeft: '0.25rem', flexWrap: 'wrap' }}>
+        {[
+          { label: 'minute',   range: '0–59' },
+          { label: 'hour',     range: '0–23' },
+          { label: 'day',      range: '1–31' },
+          { label: 'month',    range: '1–12' },
+          { label: 'weekday',  range: '0–6' },
+        ].map((f, i) => (
+          <span key={f.label} style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+            <span style={{ fontSize: '0.65rem', fontFamily: 'JetBrains Mono, monospace', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>{f.label}</span>
+            <span style={{ fontSize: '0.6rem', color: 'var(--dim)', fontFamily: 'JetBrains Mono, monospace' }}>({f.range})</span>
+            {i < 4 && <span style={{ color: 'var(--dim)', fontSize: '0.8rem', marginLeft: '0.125rem' }}>·</span>}
+          </span>
         ))}
       </div>
 
@@ -73,6 +76,7 @@ export default function CronInput({ value, onChange, result }) {
         <Terminal size={18} style={{ color: iconColor, flexShrink: 0, transition: 'color 0.2s' }} />
 
         <input
+          id="cron-expr-input"
           type="text"
           value={value}
           onChange={e => onChange(e.target.value)}
@@ -80,6 +84,9 @@ export default function CronInput({ value, onChange, result }) {
           spellCheck={false}
           autoComplete="off"
           autoCorrect="off"
+          aria-label="Cron expression"
+          aria-invalid={isInvalid}
+          aria-describedby={isInvalid ? 'cron-error' : undefined}
           style={{
             flex: 1,
             background: 'transparent',
@@ -122,6 +129,7 @@ export default function CronInput({ value, onChange, result }) {
             onClick={copy}
             disabled={!value}
             title="Copy expression"
+            aria-label={copied ? 'Copied!' : 'Copy cron expression'}
             style={{
               background: 'none',
               border: 'none',
@@ -141,6 +149,8 @@ export default function CronInput({ value, onChange, result }) {
       <AnimatePresence>
         {isInvalid && (
           <motion.div
+            id="cron-error"
+            role="alert"
             initial={{ opacity: 0, y: -4 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -4 }}

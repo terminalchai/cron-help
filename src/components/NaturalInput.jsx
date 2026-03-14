@@ -7,15 +7,17 @@ export default function NaturalInput({ onGenerate }) {
   const [value, setValue]     = useState('')
   const [result, setResult]   = useState(null)
   const [phIdx, setPhIdx]     = useState(0)
+  const [focused, setFocused] = useState(false)
   const timerRef              = useRef(null)
 
-  // Cycle placeholder examples
+  // Cycle placeholder examples (pause when focused)
   useEffect(() => {
+    if (focused) { clearInterval(timerRef.current); return }
     timerRef.current = setInterval(() => {
       setPhIdx(i => (i + 1) % NLP_EXAMPLES.length)
     }, 2400)
     return () => clearInterval(timerRef.current)
-  }, [])
+  }, [focused])
 
   function handleChange(v) {
     setValue(v)
@@ -67,10 +69,15 @@ export default function NaturalInput({ onGenerate }) {
         }}>
           <Wand2 size={16} style={{ color: 'var(--amber)', flexShrink: 0 }} />
           <input
+            id="nlp-input"
             type="text"
             value={value}
             onChange={e => handleChange(e.target.value)}
+            onFocus={() => setFocused(true)}
+            onBlur={() => setFocused(false)}
             placeholder={NLP_EXAMPLES[phIdx]}
+            aria-label="Describe a schedule in plain English"
+            aria-placeholder={NLP_EXAMPLES[phIdx]}
             style={{
               flex: 1, background: 'transparent', border: 'none', outline: 'none',
               color: 'var(--text)', fontSize: '0.9375rem',

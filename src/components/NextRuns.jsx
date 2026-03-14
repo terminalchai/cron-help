@@ -27,6 +27,7 @@ export default function NextRuns({ result }) {
         border: '1px solid var(--border)',
         borderRadius: '1rem',
         overflow: 'hidden',
+        maxWidth: '100%',
       }}
     >
       {/* Header */}
@@ -72,7 +73,7 @@ export default function NextRuns({ result }) {
               }}
             >
               {/* Index + date */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', minWidth: 0, overflow: 'hidden' }}>
                 <div style={{
                   width: 20, height: 20,
                   borderRadius: '50%',
@@ -90,6 +91,9 @@ export default function NextRuns({ result }) {
                   fontFamily: 'JetBrains Mono, monospace',
                   fontSize: '0.8rem',
                   color: i === 0 ? 'var(--text)' : 'var(--muted)',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  whiteSpace: 'nowrap',
                 }}>
                   {formatDate(date)}
                 </span>
@@ -103,8 +107,8 @@ export default function NextRuns({ result }) {
                 background: i === 0 ? 'rgba(124,108,240,0.12)' : 'transparent',
                 border: i === 0 ? '1px solid rgba(124,108,240,0.2)' : 'none',
                 padding: i === 0 ? '0.2rem 0.5rem' : '0',
-                borderRadius: '0.375rem',
-              }}>
+                borderRadius: '0.375rem',                flexShrink: 0,
+                whiteSpace: 'nowrap',              }}>
                 {timeFromNow(date)}
               </span>
             </motion.div>

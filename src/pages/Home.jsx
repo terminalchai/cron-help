@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Github, Terminal, Wand2, BookOpen } from 'lucide-react'
 import CronInput       from '../components/CronInput'
@@ -25,11 +25,20 @@ export default function Home() {
   const [expr,      setExpr]      = useState('0 9 * * 1-5')
   const [result,    setResult]    = useState(null)
   const [toast,     setToast]     = useState(null)
+  const refreshRef  = useRef(null)
+
+  function reparse(expression) {
+    if (!expression.trim()) { setResult(null); return }
+    setResult(parseCron(expression.trim()))
+  }
 
   // Parse whenever expr changes
   useEffect(() => {
-    if (!expr.trim()) { setResult(null); return }
-    setResult(parseCron(expr.trim()))
+    reparse(expr)
+    // Auto-refresh every 60s so nextRuns stays current
+    clearInterval(refreshRef.current)
+    refreshRef.current = setInterval(() => reparse(expr), 60_000)
+    return () => clearInterval(refreshRef.current)
   }, [expr])
 
   function showToast(message, type = 'success') {
@@ -140,21 +149,29 @@ export default function Home() {
       </div>
 
       {/* ── Main tool ── */}
-      <div style={{ flex: 1, width: '100%', maxWidth: 860, margin: '0 auto', padding: '0 1.5rem 4rem' }}>
+      <main style={{ flex: 1, width: '100%', maxWidth: 860, margin: '0 auto', padding: '0 1.5rem 4rem' }} id="main-content">
         {/* Tab bar */}
-        <div style={{
-          display: 'flex',
-          gap: '0.25rem',
-          background: 'var(--surface)',
-          border: '1px solid var(--border)',
-          borderRadius: '0.875rem',
-          padding: '0.25rem',
-          width: 'fit-content',
-          marginBottom: '1.75rem',
-        }}>
+        <div
+          role="tablist"
+          aria-label="Tool tabs"
+          style={{
+            display: 'flex',
+            gap: '0.25rem',
+            background: 'var(--surface)',
+            border: '1px solid var(--border)',
+            borderRadius: '0.875rem',
+            padding: '0.25rem',
+            width: 'fit-content',
+            maxWidth: '100%',
+            overflowX: 'auto',
+            marginBottom: '1.75rem',
+          }}>
           {TABS.map(t => (
             <button
               key={t.id}
+              role="tab"
+              aria-selected={tab === t.id}
+              aria-controls={`panel-${t.id}`}
               onClick={() => setTab(t.id)}
               style={{
                 display: 'flex', alignItems: 'center', gap: '0.5rem',
@@ -180,6 +197,9 @@ export default function Home() {
           {tab === 'parse' && (
             <motion.div
               key="parse"
+              role="tabpanel"
+              id="panel-parse"
+              aria-label="Parse cron expression"
               initial={{ opacity: 0, x: -8 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 8 }}
@@ -197,6 +217,9 @@ export default function Home() {
           {tab === 'gen' && (
             <motion.div
               key="gen"
+              role="tabpanel"
+              id="panel-gen"
+              aria-label="Generate cron from natural language"
               initial={{ opacity: 0, x: -8 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 8 }}
@@ -212,6 +235,9 @@ export default function Home() {
           {tab === 'ref' && (
             <motion.div
               key="ref"
+              role="tabpanel"
+              id="panel-ref"
+              aria-label="Cron expression reference"
               initial={{ opacity: 0, x: -8 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 8 }}
@@ -221,7 +247,7 @@ export default function Home() {
             </motion.div>
           )}
         </AnimatePresence>
-      </div>
+      </main>
 
       {/* ── Footer ── */}
       <footer style={{
@@ -231,6 +257,7 @@ export default function Home() {
         fontSize: '0.78rem',
         color: 'var(--dim)',
       }}>
+        <a href="#main-content" style={{ position:'absolute', left:'-9999px', top:'auto', width:1, height:1, overflow:'hidden' }}>Skip to main content</a>
         Built by{' '}
         <a
           href="https://github.com/terminalchai"
