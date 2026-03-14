@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:       #07080f;
+  --surface:  #0d0f1a;
+  --surface2: #131627;
+  --border:   rgba(255,255,255,0.06);
+  --border-hi: rgba(255,255,255,0.12);
+  --text:     #f0f2ff;
+  --muted:    rgba(240,242,255,0.45);
+  --dim:      rgba(240,242,255,0.2);
+  --violet:   #7c6cf0;
+  --violet-hi: #9d91ff;
+  --green:    #34d399;
+  --red:      #f87171;
+  --amber:    #fbbf24;
+  --blue:     #60a5fa;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+
+.mono { font-family: 'JetBrains Mono', monospace; }
