@@ -160,7 +160,7 @@ function formatTime(hr, mn) {
   return `${h}:${String(mn).padStart(2, '0')} ${suffix}`
 }
 
-/** Suggestions shown in the NLP input placeholder cycling */
+/** Placeholder cycling examples */
 export const NLP_EXAMPLES = [
   'every 5 minutes',
   'every day at 3pm',
@@ -172,4 +172,69 @@ export const NLP_EXAMPLES = [
   'every Sunday at midnight',
   'every 15 minutes',
   'every Friday at 5pm',
+]
+
+/**
+ * Full list of supported phrases for autocomplete suggestions.
+ * Each entry: { phrase, hint }  — phrase is what gets filled in, hint is extra context.
+ */
+export const NLP_SUGGESTIONS = [
+  // ─── Every N units ───────────────────────────────────────────────────────
+  { phrase: 'every minute',           hint: '* * * * *' },
+  { phrase: 'every 5 minutes',        hint: '*/5 * * * *' },
+  { phrase: 'every 10 minutes',       hint: '*/10 * * * *' },
+  { phrase: 'every 15 minutes',       hint: '*/15 * * * *' },
+  { phrase: 'every 30 minutes',       hint: '*/30 * * * *' },
+  { phrase: 'every hour',             hint: '0 * * * *' },
+  { phrase: 'every 2 hours',          hint: '0 */2 * * *' },
+  { phrase: 'every 4 hours',          hint: '0 */4 * * *' },
+  { phrase: 'every 6 hours',          hint: '0 */6 * * *' },
+  { phrase: 'every 12 hours',         hint: '0 */12 * * *' },
+  { phrase: 'every day',              hint: '0 0 * * *' },
+  { phrase: 'every week',             hint: '0 0 * * 0' },
+  { phrase: 'every month',            hint: '0 0 1 * *' },
+  { phrase: 'every year',             hint: '0 0 1 1 *' },
+  // ─── Specific times ──────────────────────────────────────────────────────
+  { phrase: 'every day at midnight',  hint: '0 0 * * *' },
+  { phrase: 'every day at noon',      hint: '0 12 * * *' },
+  { phrase: 'every day at 6am',       hint: '0 6 * * *' },
+  { phrase: 'every day at 9am',       hint: '0 9 * * *' },
+  { phrase: 'every day at 12pm',      hint: '0 12 * * *' },
+  { phrase: 'every day at 3pm',       hint: '0 15 * * *' },
+  { phrase: 'every day at 6pm',       hint: '0 18 * * *' },
+  { phrase: 'every day at 9pm',       hint: '0 21 * * *' },
+  { phrase: 'every day at 6:30am',    hint: '30 6 * * *' },
+  { phrase: 'every day at 5:30pm',    hint: '30 17 * * *' },
+  { phrase: 'twice daily',            hint: '0 0,12 * * *' },
+  // ─── Weekday / weekend ───────────────────────────────────────────────────
+  { phrase: 'every weekday',          hint: '0 0 * * 1-5' },
+  { phrase: 'every weekday at 9am',   hint: '0 9 * * 1-5' },
+  { phrase: 'every weekday at 5pm',   hint: '0 17 * * 1-5' },
+  { phrase: 'every weekday at 6:30pm',hint: '30 18 * * 1-5' },
+  { phrase: 'every weekend',          hint: '0 0 * * 0,6' },
+  { phrase: 'every weekend at 10am',  hint: '0 10 * * 0,6' },
+  // ─── Specific days ───────────────────────────────────────────────────────
+  { phrase: 'every Monday',           hint: '0 0 * * 1' },
+  { phrase: 'every Tuesday',          hint: '0 0 * * 2' },
+  { phrase: 'every Wednesday',        hint: '0 0 * * 3' },
+  { phrase: 'every Thursday',         hint: '0 0 * * 4' },
+  { phrase: 'every Friday',           hint: '0 0 * * 5' },
+  { phrase: 'every Saturday',         hint: '0 0 * * 6' },
+  { phrase: 'every Sunday',           hint: '0 0 * * 0' },
+  { phrase: 'every Monday at 9am',    hint: '0 9 * * 1' },
+  { phrase: 'every Friday at 5pm',    hint: '0 17 * * 5' },
+  { phrase: 'every Sunday at midnight', hint: '0 0 * * 0' },
+  // ─── Day of month ────────────────────────────────────────────────────────
+  { phrase: 'on the 1st of every month',  hint: '0 0 1 * *' },
+  { phrase: 'on the 15th of every month', hint: '0 0 15 * *' },
+  { phrase: 'on the last day of the month', hint: '0 0 L * *' },
+  // ─── Ranged ──────────────────────────────────────────────────────────────
+  { phrase: 'every 5 minutes from 9am to 5pm',  hint: '*/5 9-17 * * *' },
+  { phrase: 'every 15 minutes from 8am to 6pm', hint: '*/15 8-18 * * *' },
+  { phrase: 'every 30 minutes from 9am to 5pm', hint: '*/30 9-17 * * *' },
+  // ─── Specific months ─────────────────────────────────────────────────────
+  { phrase: 'every January 1st',  hint: '0 0 1 1 *' },
+  { phrase: 'in January',         hint: '0 0 1 1 *' },
+  { phrase: 'in June',            hint: '0 0 1 6 *' },
+  { phrase: 'in December',        hint: '0 0 1 12 *' },
 ]
