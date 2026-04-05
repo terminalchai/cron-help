@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0f172a" />
+      <stop offset="1" stop-color="#070b14" />
+    </linearGradient>
+    <linearGradient id="accent" x1="144" y1="120" x2="1000" y2="520" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#f59e0b" />
+      <stop offset="1" stop-color="#38bdf8" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" rx="32" fill="url(#bg)" />
+  <circle cx="955" cy="162" r="166" fill="#f59e0b" opacity="0.18" />
+  <circle cx="1055" cy="218" r="118" fill="#38bdf8" opacity="0.12" />
+  <path d="M0 502C110 474 202 460 310 464C450 468 510 528 673 528C812 528 930 474 1200 450V630H0V502Z" fill="#ffffff" opacity="0.06" />
+  <rect x="72" y="84" width="320" height="42" rx="21" fill="#0b1020" stroke="#ffffff" stroke-opacity="0.09" />
+  <circle cx="104" cy="105" r="6" fill="#f59e0b" />
+  <text x="126" y="111" fill="#d8dee9" font-family="'JetBrains Mono', monospace" font-size="20">terminalchai.com</text>
+  <text x="72" y="228" fill="#ffffff" font-family="'Inter', 'Segoe UI', sans-serif" font-size="74" font-weight="700">cron.help</text>
+  <text x="72" y="286" fill="#d7e0ea" font-family="'Inter', 'Segoe UI', sans-serif" font-size="28">cron translator and schedule helper</text>
+  <text x="72" y="542" fill="#a3afc2" font-family="'JetBrains Mono', monospace" font-size="24">cron-help.terminalchai.com</text>
+  <rect x="794" y="118" width="300" height="188" rx="28" fill="#0b1020" stroke="#ffffff" stroke-opacity="0.08" />
+  <text x="836" y="172" fill="#c7d2fe" font-family="'JetBrains Mono', monospace" font-size="22">cron-help</text>
+  <rect x="836" y="196" width="216" height="34" rx="17" fill="#111827" stroke="#ffffff" stroke-opacity="0.08" />
+  <text x="860" y="219" fill="#ffffff" font-family="'Inter', 'Segoe UI', sans-serif" font-size="20">Custom domain ready</text>
+  <rect x="836" y="240" width="188" height="34" rx="17" fill="#111827" stroke="#ffffff" stroke-opacity="0.08" />
+  <text x="860" y="263" fill="#ffffff" font-family="'Inter', 'Segoe UI', sans-serif" font-size="20">SEO baseline set</text>
+</svg>
